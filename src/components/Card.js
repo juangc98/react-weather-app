@@ -3,17 +3,14 @@ import LoadSpinner from './LoadSpinner';
 
 const Card = ({loadingData, setData, weather, forecast}) => {
 
-    //Neccesary variables
+    // DATE variables
     let today = new Date();
     let day = Number(today.getDate());
     let month = today.getMonth();
-    //let year = today.getFullYear();
-    //let date = day + '/' + month + '/' + year ;
-    //let actualHour = today.getHours();
-    // WEATHER
+    // ICON WEATHER variables
     let url = "";
     let iconUrl = "";
-    // FORECAST
+    // Creating variables for FORECAST
     let allfc = null;
     let fc1 = null;
     let fc2 = null;
@@ -29,7 +26,7 @@ const Card = ({loadingData, setData, weather, forecast}) => {
         
     }
 
-    //Get Icon
+    //Get Icon & forecast weather data
     if(setData){
         //WEATHER DATA
         url = "http://openweathermap.org/img/w/";
@@ -43,6 +40,7 @@ const Card = ({loadingData, setData, weather, forecast}) => {
         fc5 = allfc.filter(e => Number(e.dt_txt.substring(8,10)) === (day + 4));
     }
 
+    // FORECAST TABS COMPONENT
     const Tabs = ({ color }) => {
         const [openTab, setOpenTab] = React.useState(1);
         return (
@@ -292,7 +290,6 @@ const Card = ({loadingData, setData, weather, forecast}) => {
                     <h2 className="text-gray-200" >No hay datos disponibles.</h2>
                 )
             }
-
         </div>
     );
 

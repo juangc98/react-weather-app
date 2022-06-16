@@ -3,10 +3,8 @@ import React, {useState} from 'react';
 const Form = ({newLocation, myCoords}) => {
     // Estados
     const [city, setCity] = useState("");
-    const [coords, setCoords] = useState("");
-    const [locating, setLocating] = useState(false);
 
-    //
+    // onSubmit... send values to card omponent.
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(e);
@@ -17,23 +15,12 @@ const Form = ({newLocation, myCoords}) => {
             console.log("inside new location");
             newLocation(city);
         }
-        /*
-        if(e.target.value !== 'mygeolocation'){
-            console.log("inside new location");
-            newLocation(city);
-        } else {
-            console.log("my coords async");
-            try {
-                myCoords(coords);
-            } catch(e) {
-                console.log(e)
-            }
-        } */
     }
-    //
+
+    // Manejo de coordenadas
     const handleCoords = async(e) => {
         //console.log(coords);
-        if(coords || coords.length) return;
+        if(typeof city === 'object') return;
         //
         const reqCoords = await getCoords();
         setCity(reqCoords.coords);
@@ -41,17 +28,13 @@ const Form = ({newLocation, myCoords}) => {
     }
     // Solicitando coords con permiso...
     const getCoords = async (e) => {
-        setLocating(true);
         return new Promise((resolve, reject) => {
             if(!("geolocation" in navigator)) {
-                setLocating(false);
                 reject(new Error('Geolocation is not available.'));
             }
             navigator.geolocation.getCurrentPosition(pos => {
-                setLocating(false);
                 return resolve(pos);
             }, err => {
-                setLocating(false);
                 reject(err);
             })
         })
