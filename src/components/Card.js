@@ -5,28 +5,21 @@ const Card = ({loadingData, setData, weather, forecast}) => {
 
     //Neccesary variables
     let today = new Date();
-    let day = today.getDate();
+    let day = Number(today.getDate());
     let month = today.getMonth();
-    let year = today.getFullYear();
-    let date = day + '/' + month + '/' + year ;
+    //let year = today.getFullYear();
+    //let date = day + '/' + month + '/' + year ;
+    //let actualHour = today.getHours();
     // WEATHER
     let url = "";
     let iconUrl = "";
     // FORECAST
-    let actualHour = today.getHours();
-    let lastOfDay = ((24 - actualHour) / 3).toFixed(0);
-    const allfc = forecast.list;
-    let fc1 = "";
-    let fc2 = "";
-    let fc3 = "";
-    let fc4 = "";
-    let fc5 = "";
-    let fdate1 = "";
-    let fdate2 = "";
-    let fdate3 = "";
-    let fdate4 = "";
-    let fdate5 = "";
-
+    let allfc = null;
+    let fc1 = null;
+    let fc2 = null;
+    let fc3 = null;
+    let fc4 = null;
+    let fc5 = null;
 
     // When Loading....
     if(loadingData) {
@@ -42,21 +35,205 @@ const Card = ({loadingData, setData, weather, forecast}) => {
         url = "http://openweathermap.org/img/w/";
         iconUrl = url + weather.weather[0].icon + ".png";
         // FORECAST
-
-        fc1 = allfc.slice(0, lastOfDay);
-        // fc2 = allfc.slice(lastOfDay, lastOfDay + 8);
-        // fc3 = allfc.slice(lastOfDay + 8, lastOfDay + 16);
-        // fc4 = allfc.slice(lastOfDay + 16, lastOfDay + 24);
-        // fc5 = allfc.slice(lastOfDay + 24, lastOfDay + 32);
-        fdate1 = fc1[0].dt_txt.substring(8, 10) + "/" + fc1[0].dt_txt.substring(5, 7);
-        // fdate2 = fc2[0].dt_txt.substring(8, 10) + "/" + fc2[0].dt_txt.substring(5, 7);
-        // fdate3 = fc3[0].dt_txt.substring(8, 10) + "/" + fc3[0].dt_txt.substring(5, 7);
-        // fdate4 = fc4[0].dt_txt.substring(8, 10) + "/" + fc4[0].dt_txt.substring(5, 7);
-        // fdate5 = fc5[0].dt_txt.substring(8, 10) + "/" + fc5[0].dt_txt.substring(5, 7);
+        allfc = forecast.list;
+        fc1 = allfc.filter(e => Number(e.dt_txt.substring(8,10)) === day);
+        fc2 = allfc.filter(e => Number(e.dt_txt.substring(8,10)) === (day + 1));
+        fc3 = allfc.filter(e => Number(e.dt_txt.substring(8,10)) === (day + 2));
+        fc4 = allfc.filter(e => Number(e.dt_txt.substring(8,10)) === (day + 3));
+        fc5 = allfc.filter(e => Number(e.dt_txt.substring(8,10)) === (day + 4));
     }
+
+    const Tabs = ({ color }) => {
+        const [openTab, setOpenTab] = React.useState(1);
+        return (
+          <>
+            <div className="flex flex-wrap">
+              <div className="w-full">
+                <ul
+                  className="flex mb-0 list-none flex-nowrap pt-3 pb-4 flex-row gap-2 overflow-x-auto"
+                  role="tablist"
+                >
+                  <li className="-mb-px flex-auto text-center">
+                    <a
+                      className={
+                        "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
+                        (openTab === 1
+                          ? "text-white bg-" + color + "-600"
+                          : "text-" + color + "-600 bg-white")
+                      }
+                      onClick={e => {
+                        e.preventDefault();
+                        setOpenTab(1);
+                      }}
+                      data-toggle="tab"
+                      href="#link1"
+                      role="tablist"
+                    >
+                       {day}/{month}
+                    </a>
+                  </li>
+                  <li className="-mb-px flex-auto text-center">
+                    <a
+                      className={
+                        "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
+                        (openTab === 2
+                          ? "text-white bg-" + color + "-600"
+                          : "text-" + color + "-600 bg-white")
+                      }
+                      onClick={e => {
+                        e.preventDefault();
+                        setOpenTab(2);
+                      }}
+                      data-toggle="tab"
+                      href="#link2"
+                      role="tablist"
+                    >
+                       {day + 1}/{month}
+                    </a>
+                  </li>
+                  <li className="-mb-px flex-auto text-center">
+                    <a
+                      className={
+                        "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
+                        (openTab === 3
+                          ? "text-white bg-" + color + "-600"
+                          : "text-" + color + "-600 bg-white")
+                      }
+                      onClick={e => {
+                        e.preventDefault();
+                        setOpenTab(3);
+                      }}
+                      data-toggle="tab"
+                      href="#link3"
+                      role="tablist"
+                    >
+                       {day + 2}/{month}
+                    </a>
+                  </li>
+                  <li className="-mb-px flex-auto text-center">
+                    <a
+                      className={
+                        "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
+                        (openTab === 4
+                          ? "text-white bg-" + color + "-600"
+                          : "text-" + color + "-600 bg-white")
+                      }
+                      onClick={e => {
+                        e.preventDefault();
+                        setOpenTab(4);
+                      }}
+                      data-toggle="tab"
+                      href="#link4"
+                      role="tablist"
+                    >
+                       {day + 3}/{month}
+                    </a>
+                  </li>
+                  <li className="-mb-px flex-auto text-center">
+                    <a
+                      className={
+                        "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
+                        (openTab === 5
+                          ? "text-white bg-" + color + "-600"
+                          : "text-" + color + "-600 bg-white")
+                      }
+                      onClick={e => {
+                        e.preventDefault();
+                        setOpenTab(5);
+                      }}
+                      data-toggle="tab"
+                      href="#link5"
+                      role="tablist"
+                    >
+                       {day + 4}/{month}
+                    </a>
+                  </li>
+                </ul>
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="tab-content tab-space">
+                      <div className={openTab === 1 ? "block" : "hidden"} id="link1">
+                            <div className='flex flex-nowrap overflow-x-auto gap-x-2 my-1'>
+                                {fc1.map(({ main, weather, dt_txt, dt }) => (
+                                    <div key={dt} className='flex flex-col justify-start items-center p-2'>
+                                        <span className='text-sm'> {(main.temp- 273.15).toFixed(1)} </span>
+                                        <span className='-m-2'>
+                                            <img className='w-full h-full object-center object-contain' src={url + weather[0].icon + ".png"}  alt="icon weather" />
+                                        </span>
+                                        <div className='h-0.5 w-3/4 bg-gray-400 rounded-full'></div>
+                                        <span className='text-sm'> {dt_txt.substring(11, 16)} </span>
+                                    </div>
+                                ))}
+                            </div>
+                      </div>
+                      <div className={openTab === 2 ? "block" : "hidden"} id="link2">
+                        <div className='flex flex-nowrap overflow-x-auto my-1'>
+                            {fc2.map(({ main, weather, dt_txt, dt }) => (
+                                <div key={dt} className='flex flex-col justify-start items-center p-2'>
+                                    <span className='text-sm'> {(main.temp- 273.15).toFixed(1)} </span>
+                                    <span className='-m-2'>
+                                        <img className='w-full h-full object-center object-contain' src={url + weather[0].icon + ".png"}  alt="icon weather" />
+                                    </span>
+                                    <div className='h-0.5 w-3/4 bg-gray-400 rounded-full'></div>
+                                    <span className='text-sm'> {dt_txt.substring(11, 16)} </span>
+                                </div>
+                            ))}
+                        </div>
+                      </div>
+                        <div className={openTab === 3 ? "block" : "hidden"} id="link3">
+                            <div className='flex flex-nowrap overflow-x-auto my-1'>
+                                {fc3.map(({ main, weather, dt_txt, dt }) => (
+                                    <div key={dt} className='flex flex-col justify-start items-center p-2'>
+                                        <span className='text-sm'> {(main.temp- 273.15).toFixed(1)} </span>
+                                        <span className='-m-2'>
+                                            <img className='w-full h-full object-center object-contain' src={url + weather[0].icon + ".png"}  alt="icon weather" />
+                                        </span>
+                                        <div className='h-0.5 w-3/4 bg-gray-400 rounded-full'></div>
+                                        <span className='text-sm'> {dt_txt.substring(11, 16)} </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={openTab === 4 ? "block" : "hidden"} id="link4">
+                            <div className='flex flex-nowrap overflow-x-auto my-1'>
+                                {fc4.map(({ main, weather, dt_txt, dt }) => (
+                                    <div key={dt} className='flex flex-col justify-start items-center p-2'>
+                                        <span className='text-sm'> {(main.temp- 273.15).toFixed(1)} </span>
+                                        <span className='-m-2'>
+                                            <img className='w-full h-full object-center object-contain' src={url + weather[0].icon + ".png"}  alt="icon weather" />
+                                        </span>
+                                        <div className='h-0.5 w-3/4 bg-gray-400 rounded-full'></div>
+                                        <span className='text-sm'> {dt_txt.substring(11, 16)} </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={openTab === 5 ? "block" : "hidden"} id="link5">
+                            <div className='flex flex-nowrap overflow-x-auto my-1'>
+                                {fc5.map(({ main, weather, dt_txt, dt }) => (
+                                    <div key={dt} className='flex flex-col justify-start items-center p-2'>
+                                        <span className='text-sm'> {(main.temp- 273.15).toFixed(1)} </span>
+                                        <span className='-m-2'>
+                                            <img className='w-full h-full object-center object-contain' src={url + weather[0].icon + ".png"}  alt="icon weather" />
+                                        </span>
+                                        <div className='h-0.5 w-3/4 bg-gray-400 rounded-full'></div>
+                                        <span className='text-sm'> {dt_txt.substring(11, 16)} </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      };
+
     // CARD Data-Visualization
     return (
-        <div className='flex justify-center items-center w-full md:w-3/4 h-full m-auto relative' >
+        <div className='flex justify-center items-center w-full max-w-xl h-full m-auto relative' >
 
             {
                 setData === true ? (
@@ -93,9 +270,9 @@ const Card = ({loadingData, setData, weather, forecast}) => {
                             
                             <div className='secon-col flex flex-row md:flex-col flex-nowrap justify-between md:justify-end items-end text-left md:text-right pt-5'>
                                  <ul className='text-md lg:text-base !leading-snug flex flex-col'>
-                                    <li className='inline-flex items-center font-bold'> 🌡️{(weather.main.temp - 273.15).toFixed(1)} <span className='text-'>°C</span>  </li>
-                                    <li className='inline-flex items-center text-sm'> <span className='!leading-none font-bold !text-xl'> - </span> {(weather.main.temp_min - 273.15).toFixed(1)} <span className='text-'>°C</span> </li>
-                                    <li className='inline-flex items-center text-sm'> <span className='!leading-none font-bold !text-xl'> + </span> {(weather.main.temp_max - 273.15).toFixed(1)} <span className='text-'>°C</span>  </li>
+                                    <li className='inline-flex items-center md:justify-end font-bold'> 🌡️{(weather.main.temp - 273.15).toFixed(1)} <span className='text-'>°C</span>  </li>
+                                    <li className='inline-flex items-center md:justify-end text-sm'> <span className='!leading-none font-bold !text-xl'> - </span> {(weather.main.temp_min - 273.15).toFixed(1)} <span className='text-'>°C</span> </li>
+                                    <li className='inline-flex items-center md:justify-end text-sm'> <span className='!leading-none font-bold !text-xl'> + </span> {(weather.main.temp_max - 273.15).toFixed(1)} <span className='text-'>°C</span>  </li>
                                     <li className=''>☁️ {weather.clouds.all}% </li>
                                 </ul>
                                 <ul className='text-md lg:text-base !leading-snug text-right'>
@@ -108,58 +285,7 @@ const Card = ({loadingData, setData, weather, forecast}) => {
                             
                         </div>
                         <div className='w-full h-full p-5 bg-gray-500 border-t border-gray-400'>
-                            <div className='w-full h-full relative'>
-                                <div className='absolute left-0 right-0 bottom-0 overflow-x-scroll'>
-                                    <div className=''>
-                                        <p className=''>Hoy {fdate1}</p>
-                                        <div className='grid grid-cols-8 gap-x-2 my-1'>
-                                            {fc1.map(({ main, weather, dt_txt, dt }) => (
-                                                <div key={dt} className='flex flex-col justify-start items-center'>
-                                                    <span className='text-sm'> {(main.temp- 273.15).toFixed(1)} </span>
-                                                    <span className='-m-2'>
-                                                        <img className='w-full h-full object-center object-contain' src={url + weather[0].icon + ".png"}  alt="icon weather" />
-                                                    </span>
-                                                    <div className='h-0.5 w-3/4 bg-gray-400 rounded-full'></div>
-                                                    <span className='text-sm'> {dt_txt.substring(11, 16)} </span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    <div className=''>
-                                        <p className=''>Hoy {fdate1}</p>
-                                        <div className='grid grid-cols-8 gap-x-2 my-1'>
-                                            {fc1.map(({ main, weather, dt_txt, dt }) => (
-                                                <div key={dt} className='flex flex-col justify-start items-center'>
-                                                    <span className='text-sm'> {(main.temp- 273.15).toFixed(1)} </span>
-                                                    <span className='-m-2'>
-                                                        <img className='w-full h-full object-center object-contain' src={url + weather[0].icon + ".png"}  alt="icon weather" />
-                                                    </span>
-                                                    <div className='h-0.5 w-3/4 bg-gray-400 rounded-full'></div>
-                                                    <span className='text-sm'> {dt_txt.substring(11, 16)} </span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    <div className=''>
-                                        <p className=''>Hoy {fdate1}</p>
-                                        <div className='grid grid-cols-8 gap-x-2 my-1'>
-                                            {fc1.map(({ main, weather, dt_txt, dt }) => (
-                                                <div key={dt} className='flex flex-col justify-start items-center'>
-                                                    <span className='text-sm'> {(main.temp- 273.15).toFixed(1)} </span>
-                                                    <span className='-m-2'>
-                                                        <img className='w-full h-full object-center object-contain' src={url + weather[0].icon + ".png"}  alt="icon weather" />
-                                                    </span>
-                                                    <div className='h-0.5 w-3/4 bg-gray-400 rounded-full'></div>
-                                                    <span className='text-sm'> {dt_txt.substring(11, 16)} </span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                            <Tabs color="pink" />
                         </div>
                     </div>
                 ) : (
