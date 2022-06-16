@@ -14,13 +14,12 @@ const Panel = () => {
     const [forecast, setForecast] = useState([]);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState(false);
-    const [location, setLocation] = useState("");
+    // const [location, setLocation] = useState("");
     const [geolocation, setGeolocation] = useState({});
 
     // FUNCTIONS
     const getViaLocation = async(loc) => {
         setLoading(true);
-        setLocation(loc);
         // ACTUAL WEATHER
         await axios.get(URL_WEATHER, {
             params: {

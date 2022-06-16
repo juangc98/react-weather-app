@@ -41,7 +41,7 @@ const Card = ({loadingData, setData, weather, forecast}) => {
     }
 
     // FORECAST TABS COMPONENT
-    const Tabs = ({ color }) => {
+    const Tabs = () => {
         const [openTab, setOpenTab] = React.useState(1);
         return (
           <>
@@ -56,8 +56,8 @@ const Card = ({loadingData, setData, weather, forecast}) => {
                       className={
                         "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
                         (openTab === 1
-                          ? "text-white bg-" + color + "-600"
-                          : "text-" + color + "-600 bg-white")
+                          ? "text-white bg-slate-600"
+                          : "text-slate-600 bg-white")
                       }
                       onClick={e => {
                         e.preventDefault();
@@ -75,8 +75,8 @@ const Card = ({loadingData, setData, weather, forecast}) => {
                       className={
                         "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
                         (openTab === 2
-                          ? "text-white bg-" + color + "-600"
-                          : "text-" + color + "-600 bg-white")
+                          ? "text-white bg-slate-600"
+                          : "text-slate-600 bg-white")
                       }
                       onClick={e => {
                         e.preventDefault();
@@ -94,8 +94,8 @@ const Card = ({loadingData, setData, weather, forecast}) => {
                       className={
                         "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
                         (openTab === 3
-                          ? "text-white bg-" + color + "-600"
-                          : "text-" + color + "-600 bg-white")
+                          ? "text-white bg-slate-600"
+                          : "text-slate-600 bg-white")
                       }
                       onClick={e => {
                         e.preventDefault();
@@ -113,8 +113,8 @@ const Card = ({loadingData, setData, weather, forecast}) => {
                       className={
                         "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
                         (openTab === 4
-                          ? "text-white bg-" + color + "-600"
-                          : "text-" + color + "-600 bg-white")
+                          ? "text-white bg-slate-600"
+                          : "text-slate-600 bg-white")
                       }
                       onClick={e => {
                         e.preventDefault();
@@ -132,8 +132,8 @@ const Card = ({loadingData, setData, weather, forecast}) => {
                       className={
                         "text-xs font-bold uppercase px-3 py-2 shadow-lg rounded block leading-normal " +
                         (openTab === 5
-                          ? "text-white bg-" + color + "-600"
-                          : "text-" + color + "-600 bg-white")
+                          ? "text-white bg-slate-600"
+                          : "text-slate-600 bg-white")
                       }
                       onClick={e => {
                         e.preventDefault();
@@ -282,8 +282,8 @@ const Card = ({loadingData, setData, weather, forecast}) => {
                             </div>
                             
                         </div>
-                        <div className='w-full h-full p-5 bg-gray-500 border-t border-gray-400'>
-                            <Tabs color="pink" />
+                        <div className='w-full h-full p-5 bg-gray-400 border-t border-gray-400'>
+                            <Tabs />
                         </div>
                     </div>
                 ) : (
