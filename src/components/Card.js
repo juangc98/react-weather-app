@@ -29,7 +29,7 @@ const Card = ({loadingData, setData, weather, forecast}) => {
     //Get Icon & forecast weather data
     if(setData){
         //WEATHER DATA
-        url = "http://openweathermap.org/img/w/";
+        url = "https://openweathermap.org/img/w/";
         iconUrl = url + weather.weather[0].icon + ".png";
         // FORECAST
         allfc = forecast.list;
